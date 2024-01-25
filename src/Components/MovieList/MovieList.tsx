@@ -5,11 +5,10 @@ import MovieListItem from "./MovieListItem";
 interface Props {
     movies: Movie[]
     handleDeleteMovie: (id: number) => void
-    handleEditMovie: (id: number, newValue: string) => void
+    handleEditMovie: (id: number, newName: string) => void
 }
 
 const MovieList: React.FC<Props> = ({movies, handleDeleteMovie, handleEditMovie}) => {
-
     return <>
         {movies.length ?
             <>

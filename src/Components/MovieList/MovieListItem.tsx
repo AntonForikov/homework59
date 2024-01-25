@@ -6,8 +6,7 @@ interface Props {
     handleEdit: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const MovieListItem: React.FC<Props> = ({name, handleDelete, handleEdit}) => {
-    console.log('Rendered ', name);
+const MovieListItem: React.FC<Props> = React.memo(({name, handleDelete, handleEdit}) => {
     return (
         <div
             style={{
@@ -35,6 +34,8 @@ const MovieListItem: React.FC<Props> = ({name, handleDelete, handleEdit}) => {
             </div>
         </div>
     );
-};
+},(prev, current) => {
+    return prev.name === current.name;
+});
 
 export default MovieListItem;
