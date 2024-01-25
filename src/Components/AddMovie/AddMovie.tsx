@@ -1,31 +1,28 @@
 import React, {useState} from 'react';
-import {Movie, MovieMutation} from "../types";
+import {Movie, MovieMutation} from "../../types";
 
 
 interface Props {
-    onSubmit: (movie: Movie) => void
+    handleAddMovie: (movie: Movie) => void
 }
-const AddElem: React.FC<Props> = ({onSubmit}) => {
+const AddMovie: React.FC<Props> = ({handleAddMovie}) => {
     const [movie, setMovie] = useState<MovieMutation>({name: ''});
     const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMovie(prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
+        setMovie({name: e.target.value});
     };
 
     const onFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (movie.name) {
-            onSubmit({
+            handleAddMovie({
                 id: Math.random(),
                 ...movie
-            })
+            });
+            setMovie({name: ''});
         } else {
-            alert("Please enter movie name before add it to list")
+            alert("Please enter movie name before add it to list");
         }
-
-    }
+    };
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -42,4 +39,4 @@ const AddElem: React.FC<Props> = ({onSubmit}) => {
     );
 };
 
-export default AddElem;
+export default AddMovie;

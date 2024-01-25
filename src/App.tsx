@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './App.css';
-import AddElem from "./AddElem/AddElem";
+import AddMovie from "./Components/AddMovie/AddMovie";
 import {Movie} from "./types";
-import MovieItem from "./MovieItem/MovieItem";
+import MovieList from "./Components/MovieList/MovieList";
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -11,10 +11,25 @@ function App() {
       setMovies(prevState => [...prevState, movie]);
   };
 
+  const editMovie = (movieId: number, newName: string) => {
+    setMovies((prevState) => {
+      return prevState.map(movie => {
+        if (movie.id === movieId) {
+          movie.name = newName;
+        }
+        return movie;
+      });
+    });
+  };
+
+  const deleteMovie = (movieId: number) => {
+    setMovies((prevState) => prevState.filter(movie => movie.id !== movieId));
+  };
+
   return (
     <>
-      <AddElem onSubmit={addMovie} />
-        <MovieItem movies={movies} />
+      <AddMovie handleAddMovie={addMovie} />
+        <MovieList movies={movies} handleDeleteMovie={deleteMovie} handleEditMovie={editMovie} />
     </>
   );
 }
