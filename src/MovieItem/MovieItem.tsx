@@ -29,7 +29,7 @@ const MovieItem: React.FC<Props> = ({movies}) => {
                         >
                             Delete
                         </button>
-                    </div>
+                    </div>;
                 })}
             </> :
             <h2>There are no films to watch</h2>
