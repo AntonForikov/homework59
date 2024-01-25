@@ -12,7 +12,7 @@ const MovieList: React.FC<Props> = ({movies, handleDeleteMovie, handleEditMovie}
     return <>
         {movies.length ?
             <>
-                <h2>To watch list:</h2>
+                <h3>To watch list:</h3>
                 {movies.map((movie) => (
                     <MovieListItem
                         key={movie.id}
@@ -22,7 +22,7 @@ const MovieList: React.FC<Props> = ({movies, handleDeleteMovie, handleEditMovie}
                     />
                 ))}
             </> :
-            <h2>There are no films to watch</h2>
+            <h3>There are no films to watch</h3>
         }
     </>;
 };
