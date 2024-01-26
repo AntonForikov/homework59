@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import JokeButton from "./JokeButton";
+import { Bars } from 'react-loader-spinner';
 
 interface Joke {
     joke: string
 }
 const Joke: React.FC= () => {
     const [jokes, setJokes] = useState<Joke[]>([]);
+    const [loader, setLoader] = useState(false);
 
     const fetchOneJoke = async () => {
+        setLoader(true);
         const response = await fetch('https://api.chucknorris.io/jokes/random');
         if (response.ok) {
             const post = await response.json();
@@ -15,9 +18,11 @@ const Joke: React.FC= () => {
         } else {
             console.error(`[Fetch-${response.status}]: error - Please check request URL.`);
         }
+        setLoader(false);
     };
 
     const fetchFiveJokes = async () => {
+        setLoader(true);
         const promises = [];
         for (let i = 0; i < 5; i++) {
             promises.push(fetch('https://api.chucknorris.io/jokes/random'));
@@ -33,6 +38,7 @@ const Joke: React.FC= () => {
             }
         }
         setJokes(newJokes);
+        setLoader(false);
     };
 
     useEffect(() => {
@@ -41,6 +47,18 @@ const Joke: React.FC= () => {
 
     return (
         <>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+            }}>
+                <Bars
+                    height="20"
+                    width="20"
+                    color="#4fa94d"
+                    ariaLabel="bars-loading"
+                    visible={loader}
+                />
+            </div>
             {jokes.map(joke => {
                 return <div
                     style={{
