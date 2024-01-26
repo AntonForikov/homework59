@@ -12,6 +12,7 @@ const JokeButton: React.FC<Props> = React.memo(({onClick}) => {
             Get joke
         </button>
     );
-}, (prev,current)=> prev.onClick !== current.onClick);
+},(prev,current)=> prev.onClick !== current.onClick
+);
 
 export default JokeButton;

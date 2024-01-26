@@ -5,20 +5,38 @@ interface Joke {
     joke: string
 }
 const Joke: React.FC= () => {
-    const [jokes, setJokes] = useState<Joke[]>([{joke: ''}]);
+    const [jokes, setJokes] = useState<Joke[]>([]);
 
-    const fetchData = async () => {
+    const fetchOneJoke = async () => {
         const response = await fetch('https://api.chucknorris.io/jokes/random');
         if (response.ok) {
             const post = await response.json();
-            setJokes([{joke: post.value}]);
+            setJokes(prevState => [...prevState, {joke: post.value}]);
         } else {
             console.error(`[Fetch-${response.status}]: error - Please check request URL.`);
         }
     };
 
+    const fetchFiveJokes = async () => {
+        const promises = [];
+        for (let i = 0; i < 5; i++) {
+            promises.push(fetch('https://api.chucknorris.io/jokes/random'));
+        }
+
+        const responses = await Promise.all(promises);
+        const newJokes: Joke[] = [];
+        for (let i = 0; i < responses.length; i++) {
+            const response = responses[i];
+            if (response.ok) {
+                const responseJson = await response.json();
+                newJokes.push({joke: responseJson.value});
+            }
+        }
+        setJokes(newJokes);
+    };
+
     useEffect(() => {
-        void fetchData();
+        void fetchFiveJokes();
     }, []);
 
     return (
@@ -39,7 +57,7 @@ const Joke: React.FC= () => {
                     {joke.joke}
                 </div>;
             })}
-            <JokeButton onClick={fetchData} />
+            <JokeButton onClick={fetchOneJoke} />
         </>
     );
 };
