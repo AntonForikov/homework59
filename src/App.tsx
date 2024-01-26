@@ -3,6 +3,7 @@ import './App.css';
 import AddMovie from "./Components/AddMovie/AddMovie";
 import {Movie} from "./types";
 import MovieList from "./Components/MovieList/MovieList";
+import Joke from "./Components/Joke/Joke";
 
 function App() {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -35,6 +36,7 @@ function App() {
             </div>
             <div className="tasksDiv">
                 <h2>Second task</h2>
+                <Joke />
             </div>
 
         </>
