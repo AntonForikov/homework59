@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import JokeButton from "./JokeButton";
 
 interface Joke {
     joke: string
@@ -38,7 +39,7 @@ const Joke: React.FC= () => {
                     {joke.joke}
                 </div>;
             })}
-            <button onClick={fetchData} style={{marginBottom: 10}}>Get joke</button>
+            <JokeButton onClick={fetchData} />
         </>
     );
 };
